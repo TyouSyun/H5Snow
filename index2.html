@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Starry</title>
+</head>
+<body>
+    <img src="img/starry_sky_night_stars_115042_3840x2400.png" style="width: 100%;height: auto;" id="floor_img" hidden/>
+    <canvas id="myCanvas" style="background-color: black;" >
+        Your browser does not support the HTML5 canvas tag.
+    </canvas>
+
+    <script src="script/star.js"></script>
+    <script>
+        var c = document.getElementById("myCanvas");
+        var img=document.getElementById("floor_img");
+        c.width = window.innerWidth - 20;
+        c.height = window.innerHeight - 20;
+
+        var starNum = window.innerWidth * window.innerHeight /1800;
+
+        var ctx = c.getContext("2d");
+
+        var arcInfo = [];
+        var arcObj = {};
+        var printArc = function(){
+            arcInfo.forEach(function(value, index, array){
+
+            });
+
+            for(o in arcObj)
+            {
+
+            }
+        }
+        var lineWidth = Math.floor(Math.random()*3 + 1);
+        var R = Math.floor(Math.random()*20 + 3);
+        var site_x = Math.floor(Math.random()*400 + 200);
+        var site_y = Math.floor(Math.random()*400 + 200);
+        var rotate = Math.floor(Math.random()*6 + 1);
+
+        var color = ["red","orange","orange yellow","yellow","greenish yellow","violet","leaf green","violet red","ultramarine violet"];
+
+        var fillStyle = color[Math.floor(Math.random()*color.length)];
+        var strokeStyle = color[Math.floor(Math.random()*color.length)];
+
+        //var star = new Star(fillStyle,strokeStyle,lineWidth,R,site_x,site_y,rotate);
+        var draw = function()
+        {
+            ctx.clearRect(0,0,window.innerWidth - 20,window.innerHeight - 20) // 擦除画布一个区域xy、xy
+            ctx.drawImage(img,0,0,window.innerWidth - 20,window.innerHeight - 20);
+
+            for(var i=0;i<starNum;i++)
+            {
+                var StarArray = "StarArray" + i;
+                var StarArray = new StarPolygon();
+                StarArray.CreateStar();
+            }
+        }
+
+//        var StarPolygon = new StarPolygon();
+//        StarPolygon.CreateStar();
+        setInterval(draw,1000);
+
+        //浏览器窗口变化后刷新页面
+        window.onresize = function()
+        {
+            window.location.reload();
+        }
+        //ctx.arc(100,75,50,0*Math.PI,1.5*Math.PI);
+        //1,红 R
+//        ctx.beginPath();
+//        ctx.arc(100,75,25,0,2*Math.PI);
+//        ctx.fillStyle="red";
+//        ctx.stroke();
+//        ctx.closePath();
+//        ctx.fill();
+//
+//        //2 橙红 orange red OR
+//        ctx.beginPath();
+//        ctx.arc(200,75,25,0,2*Math.PI);
+//        ctx.fillStyle="#ddd";
+//        ctx.stroke();
+//        ctx.closePath();
+//        ctx.fill();
+//
+//        //3 橙 orange O
+//        ctx.beginPath();
+//        ctx.arc(100,175,25,0,2*Math.PI);
+//        ctx.fillStyle="orange";
+//        ctx.stroke();
+//        ctx.closePath();
+//        ctx.fill();
+//
+//        //4 橙黄 orange yello OY
+//        ctx.beginPath();
+//        ctx.arc(200,175,25,0,2*Math.PI);
+//        ctx.fillStyle="orange yellow";
+//        ctx.stroke();
+//        ctx.closePath();
+//        ctx.fill();
+//
+//        //5 黄 yellow Y
+//        ctx.beginPath();
+//        ctx.arc(200,175,25,0,2*Math.PI);
+//        ctx.fillStyle="yellow";
+//        ctx.stroke();
+//        ctx.closePath();
+//        ctx.fill();
+//
+//        //6 青黄 greenish yellow gY
+//        ctx.beginPath();
+//        ctx.arc(240,200,25,0,2*Math.PI);
+//        ctx.fillStyle="greenish yellow";
+//        ctx.stroke();
+//        ctx.closePath();
+//        ctx.fill();
+
+        //7 黄绿 yellow green YG
+        //8 叶绿 leaf green LG
+//        9 绿 green G
+//        10 蓝绿 blue green BG
+//        11 蓝 blue B
+//        12 群青蓝 ultramarine blue UB
+//        13 群青 ultramarine U
+//        14 青紫 ultramarine violet UV
+//        15 紫罗兰 violet V
+//        16 紫红 violet red VR
+    </script>
+</body>
+</html>
