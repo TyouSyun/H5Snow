@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>star</title>
+</head>
+<body>
+<div>
+    <canvas id="bgCanvas" width = "800" height="600"></canvas>
+    <!--<canvas id="bgCanvas"></canvas>-->
+</div>
+<!--<script src="script/main.js"></script>-->
+<!--<script type="text/javascript" src="script/commonFunctions.js" ></script>-->
+<!--<script type="text/javascript" src="script/starts.js" ></script>-->
+
+<script>
+//    document.getElementById('portal_search').addEventListener('submit',function () {
+//        var value=document.getElementById('search_input').value.toLowerCase();
+//        value=value.replace('hd wallpaper','').replace('wallpaper','').replace('images','').replace('image','').replace('photo','').replace(/[^\w\s]|_/g, " ").replace(/\s+/g, " ").replace(/(^\s*)|(\s*$)/g, "");
+//        if(value!=''){
+//            var value_arr=value.split(' ').filter(function(e){return e});
+//            location.href='index.htm'/*tpa=http://www.peakpx.com/*/+value_arr.join('-');
+//        }
+//    });
+    function setsize(){
+        var b=22+(document.body.clientHeight-764)*5.5/164;
+        document.documentElement.style.fontSize = b+"px";
+        document.body.style.fontSize = b+"px";
+    }
+    setsize();
+    window.onresize =setsize;
+    (function() {
+        var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+                window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || function( callback ){
+            window.setTimeout(callback, 1000 / 60);
+        };
+        window.requestAnimationFrame = requestAnimationFrame;
+    })();
+    var background = document.getElementById("bgCanvas"),
+            bgCtx = background.getContext("2d"),
+            width = window.innerWidth,
+            //height = document.body.offsetHeight;
+            height = window.innerHeight;
+    (height < 400)?height = 400:height;
+    background.width = width;
+    background.height = height;
+    function ShootingStar(){
+        this.reset();
+    }
+    ShootingStar.prototype.reset = function(){
+        this.x = Math.random()*width;
+        this.y = 0;
+        this.len = (Math.random()*80)+10;
+        this.speed = (Math.random()*10)+6;
+        this.size = (Math.random()*2)+0.1;
+        this.waitTime =  new Date().getTime() + (Math.random()*2000)+500;
+        this.active = false;
+    }
+    ShootingStar.prototype.update = function(){
+        if(this.active){
+            this.x-=this.speed;
+            this.y+=this.speed;
+            if(this.x<0 || this.y >= height){
+                this.reset();
+            }else{
+                bgCtx.lineWidth = this.size;
+                bgCtx.beginPath();
+                bgCtx.moveTo(this.x,this.y);
+                bgCtx.lineTo(this.x+this.len, this.y-this.len);
+                bgCtx.stroke();
+            }
+        }else{
+            if(this.waitTime < new Date().getTime()){
+                this.active = true;
+            }
+        }
+    }
+    var entities = [];
+    entities.push(new ShootingStar());
+    entities.push(new ShootingStar());
+    function animate(){
+        var my_gradient=bgCtx.createLinearGradient(0,0,0,height);
+        my_gradient.addColorStop(0,"#07091E");
+        my_gradient.addColorStop(1,"#464854");
+        bgCtx.fillStyle = my_gradient;
+        bgCtx.fillRect(0,0,width,height);
+        bgCtx.strokeStyle = '#FFFFFF';
+        var entLen = entities.length;
+        while(entLen--){
+            entities[entLen].update();
+        }
+        requestAnimationFrame(animate);
+    }
+    animate();
+</script>
+</body>
+</html>
